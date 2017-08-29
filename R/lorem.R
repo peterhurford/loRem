@@ -24,8 +24,18 @@ raw_lorem <- function() {
 #' @param n integer. The amount of lorem words to generate.
 #' @return glorius lorem.
 #' @export
-lorem <- function(n) {
-  stopifnot(is.numeric(n) && n > 0)
-  n <- as.integer(n)
-  paste(cycle_vector_to_length(words(raw_lorem()), n), collapse = " ")
+lorem <- function(start = 0, stop = 0) {
+  stopifnot(is.numeric(stop) && stop >= 0)
+  stopifnot(is.numeric(start) && start >= 0)
+  start <- as.integer(start)
+  stop <- as.integer(stop)
+  if (start > 0 && stop == 0) {
+    words <- cycle_vector_to_length(words(raw_lorem()), start)
+  } else if (start > stop && stop != 0) {
+    stop("Start is greater than stop.")
+  } else {
+    words <- cycle_vector_to_length(words(raw_lorem()), stop)
+    words <- words[start:stop]
+  }
+  paste(words, collapse = " ")
 }
