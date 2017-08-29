@@ -27,5 +27,5 @@ raw_lorem <- function() {
 lorem <- function(n) {
   stopifnot(is.numeric(n) && n > 0)
   n <- as.integer(n)
-  raw_lorem() %>% words %>% cycle_vector_to_length(., n) %>% paste(., collapse = " ")
+  paste(cycle_vector_to_length(words(raw_lorem()), n), collapse = " ")
 }
